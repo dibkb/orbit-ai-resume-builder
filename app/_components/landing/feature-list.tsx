@@ -10,17 +10,20 @@ const features = [
     description:
       "Multi-module evaluation with specific improvement suggestions and scoring",
     icon: <Graph />,
+    className: "bg-blue-500",
   },
   {
     title: "Professional Templates",
     description:
       "Clean, modern designs that pass ATS systems and impress recruiters",
     icon: <Photo />,
+    className: "bg-green-500",
   },
   {
     title: "Multi-Format Export",
     description: "Export your polished resume in PDF, DOCX, and HTML formats",
     icon: <Lock />,
+    className: "bg-purple-500",
   },
 ];
 
