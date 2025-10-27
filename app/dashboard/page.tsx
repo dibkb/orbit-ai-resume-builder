@@ -3,29 +3,31 @@
 import { Button } from "@/components/ui/button";
 import { geistMono, geistSans } from "@/lib/fonts";
 import { ChartNoAxesColumn, Eye, Clock10 } from "lucide-react";
-import { parseAsString, useQueryState } from "nuqs";
+import { useQueryState, parseAsStringEnum } from "nuqs";
+import { DashboardTab } from "@/lib/types/nuqs-dashboard";
 const tabs = [
   {
     label: "Analytics",
-    value: "analytics",
+    value: DashboardTab.Analytics,
     icon: <ChartNoAxesColumn className="size-4" />,
   },
   {
     label: "Resume Preview",
-    value: "resume-preview",
+    value: DashboardTab.ResumePreview,
     icon: <Eye className="size-4" />,
   },
   {
     label: "Edit History",
-    value: "edit-history",
+    value: DashboardTab.EditHistory,
     icon: <Clock10 className="size-4" />,
   },
 ];
 export default function Dashboard() {
   const [tab, setTab] = useQueryState(
     "tab",
-    parseAsString.withDefault("analytics")
+    parseAsStringEnum<DashboardTab>(Object.values(DashboardTab))
   );
+
   return (
     <div
       className={`container mx-auto p-4 max-w-7xl ${geistSans.variable} ${geistMono.variable} antialiased`}
