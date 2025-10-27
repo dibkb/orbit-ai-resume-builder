@@ -5,6 +5,7 @@ import { Upload, X } from "lucide-react";
 import Document from "../svg/document";
 import { useUploadStore } from "@/store/use-upload-store";
 import { Button } from "@/components/ui/button";
+import { sourceCodePro } from "@/lib/fonts";
 interface PdfUploadProps {
   className?: string;
 }
@@ -62,7 +63,14 @@ const PdfUpload = ({ className }: PdfUploadProps) => {
           <div className="flex items-center gap-3">
             <Document />
             <div>
-              <p className="font-medium text-gray-800">{selectedFile.name}</p>
+              <p
+                className={cn(
+                  "font-medium text-gray-800",
+                  sourceCodePro.className
+                )}
+              >
+                {selectedFile.name}
+              </p>
               <p className="text-sm text-neutral-500">
                 {(selectedFile.size / 1024).toFixed(2)} KB
               </p>
