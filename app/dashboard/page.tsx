@@ -11,6 +11,9 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { cn } from "@/lib/utils";
+import { Analytics } from "../_components/dashboard/analytics";
+import Resume from "../_components/dashboard/resume";
+import History from "../_components/dashboard/history";
 const tabs = [
   {
     label: "Analytics",
@@ -61,6 +64,9 @@ export default function Dashboard() {
               </Button>
             ))}
           </div>
+          {activeTab === DashboardTab.Analytics && <Analytics />}
+          {activeTab === DashboardTab.ResumePreview && <Resume />}
+          {activeTab === DashboardTab.EditHistory && <History />}
         </ResizablePanel>
         <ResizableHandle className="bg-neutral-100" />
         <ResizablePanel defaultSize={25} className="p-2"></ResizablePanel>
