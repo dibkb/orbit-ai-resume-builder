@@ -3,10 +3,6 @@ import FeatureList from "./_components/landing/feature-list";
 import PdfUpload from "./_components/upload/pdf-upload";
 
 export default function Home() {
-  const handleFileSelect = (file: File) => {
-    console.log("File selected:", file.name);
-  };
-
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-white text-black font-sans px-4">
       <div className="flex flex-col items-center justify-center gap-4 max-w-2xl mb-8">
@@ -24,7 +20,7 @@ export default function Home() {
       </div>
 
       <div className="w-full max-w-2xl mb-12">
-        <PdfUpload onFileSelect={handleFileSelect} />
+        <PdfUpload />
       </div>
 
       <FeatureList className="mt-8" />

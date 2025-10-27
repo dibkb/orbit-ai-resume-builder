@@ -1,16 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Upload, FileText, X } from "lucide-react";
+import { Upload, FileIcon, X } from "lucide-react";
+import { useUploadStore } from "@/store/use-upload-store";
 
 interface PdfUploadProps {
   className?: string;
-  onFileSelect: (file: File) => void;
 }
 
-const PdfUpload = ({ className, onFileSelect }: PdfUploadProps) => {
+const PdfUpload = ({ className }: PdfUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { selectedFile, fileMetadata, setFile, clearFile } = useUploadStore();
+
+  useEffect(() => {
+    if (fileMetadata && !selectedFile) {
+      console.log("File metadata available:", fileMetadata);
+    }
+  }, [fileMetadata, selectedFile]);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -28,21 +34,19 @@ const PdfUpload = ({ className, onFileSelect }: PdfUploadProps) => {
 
     const file = e.dataTransfer.files[0];
     if (file && file.type === "application/pdf") {
-      setSelectedFile(file);
-      onFileSelect(file);
+      setFile(file);
     }
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && file.type === "application/pdf") {
-      setSelectedFile(file);
-      onFileSelect(file);
+      setFile(file);
     }
   };
 
   const handleRemove = () => {
-    setSelectedFile(null);
+    clearFile();
   };
 
   if (selectedFile) {
@@ -54,7 +58,7 @@ const PdfUpload = ({ className, onFileSelect }: PdfUploadProps) => {
         )}
       >
         <div className="flex items-center gap-3">
-          <FileText className="h-8 w-8 text-blue-600" />
+          <FileIcon className="h-8 w-8 text-blue-600" />
           <div>
             <p className="font-semibold text-gray-900">{selectedFile.name}</p>
             <p className="text-sm text-gray-500">
