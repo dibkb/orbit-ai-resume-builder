@@ -1,3 +1,5 @@
+"use client";
+import { cn } from "@/lib/utils";
 import Graph from "../svg/graph";
 import Photo from "../svg/photo";
 import Lock from "../svg/lock";
@@ -22,9 +24,9 @@ const features = [
   },
 ];
 
-const FeatureList = () => {
+const FeatureList = ({ className }: { className?: string }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className={cn("flex items-center justify-center gap-4", className)}>
       {features.map((feature) => (
         <Feature key={feature.title} {...feature} />
       ))}
