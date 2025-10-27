@@ -1,3 +1,4 @@
+import FeatureList from "./_components/landing/feature-list";
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-white text-black font-sans">
@@ -14,6 +15,7 @@ export default function Home() {
           competitive job market.
         </p>
       </div>
+      <FeatureList />
     </div>
   );
 }
