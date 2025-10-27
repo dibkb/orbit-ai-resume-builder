@@ -1,11 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Upload, X } from "lucide-react";
 import Document from "../svg/document";
 import { useUploadStore } from "@/store/use-upload-store";
 import { Button } from "@/components/ui/button";
 import { sourceCodePro } from "@/lib/fonts";
+
 interface PdfUploadProps {
   className?: string;
 }
@@ -13,12 +14,6 @@ interface PdfUploadProps {
 const PdfUpload = ({ className }: PdfUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const { selectedFile, fileMetadata, setFile, clearFile } = useUploadStore();
-
-  useEffect(() => {
-    if (fileMetadata && !selectedFile) {
-      console.log("File metadata available:", fileMetadata);
-    }
-  }, [fileMetadata, selectedFile]);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -69,10 +64,11 @@ const PdfUpload = ({ className }: PdfUploadProps) => {
                   sourceCodePro.className
                 )}
               >
-                {selectedFile.name}
+                {fileMetadata?.name}
               </p>
               <p className="text-sm text-neutral-500">
-                {(selectedFile.size / 1024).toFixed(2)} KB
+                {(fileMetadata?.size ? fileMetadata.size / 1024 : 0).toFixed(2)}{" "}
+                KB
               </p>
             </div>
           </div>
