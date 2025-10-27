@@ -1,8 +1,15 @@
+"use client";
 import FeatureList from "./_components/landing/feature-list";
+import PdfUpload from "./_components/upload/pdf-upload";
+
 export default function Home() {
+  const handleFileSelect = (file: File) => {
+    console.log("File selected:", file.name);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center bg-white text-black font-sans">
-      <div className="flex flex-col items-center justify-center gap-4 max-w-2xl">
+    <div className="flex flex-col min-h-screen items-center justify-center bg-white text-black font-sans px-4">
+      <div className="flex flex-col items-center justify-center gap-4 max-w-2xl mb-8">
         <h3 className="text-5xl font-semibold">Transform Your Resume with</h3>
         <h1 className="text-5xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           AI-Powered Insights
@@ -15,7 +22,12 @@ export default function Home() {
           competitive job market.
         </p>
       </div>
-      <FeatureList className="mt-12" />
+
+      <div className="w-full max-w-2xl mb-12">
+        <PdfUpload onFileSelect={handleFileSelect} />
+      </div>
+
+      <FeatureList className="mt-8" />
     </div>
   );
 }
