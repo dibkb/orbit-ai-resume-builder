@@ -5,6 +5,12 @@ import { geistMono, geistSans } from "@/lib/fonts";
 import { ChartNoAxesColumn, Eye, Clock10 } from "lucide-react";
 import { useQueryState, parseAsStringEnum } from "nuqs";
 import { DashboardTab } from "@/lib/types/nuqs-dashboard";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+import { cn } from "@/lib/utils";
 const tabs = [
   {
     label: "Analytics",
@@ -23,28 +29,42 @@ const tabs = [
   },
 ];
 export default function Dashboard() {
-  const [tab, setTab] = useQueryState(
+  const [activeTab, setActiveTab] = useQueryState(
     "tab",
     parseAsStringEnum<DashboardTab>(Object.values(DashboardTab))
   );
 
   return (
     <div
-      className={`container mx-auto p-4 max-w-7xl ${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`mx-auto p-4 ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <div className="grid grid-cols-3 border w-full rounded-lg p-1">
-        {tabs.map((tab) => (
-          <Button
-            key={tab.value}
-            variant="ghost"
-            onClick={() => setTab(tab.value)}
-            className="w-full font-medium"
-          >
-            {tab.icon}
-            {tab.label}
-          </Button>
-        ))}
-      </div>
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="w-full rounded-lg h-full min-h-[calc(100vh-32px)]"
+      >
+        <ResizablePanel defaultSize={75} className="p-4">
+          <div className="grid grid-cols-3 w-full rounded-lg p-1 border border-neutral-100">
+            {tabs.map((tab) => (
+              <Button
+                key={tab.value}
+                variant={tab.value === activeTab ? "default" : "ghost"}
+                onClick={() => setActiveTab(tab.value)}
+                className={cn(
+                  "w-full font-semibold",
+                  tab.value === activeTab &&
+                    "bg-linear-to-r from-blue-600 to-sky-600",
+                  "hover:from-blue-600 hover:to-sky-600"
+                )}
+              >
+                {tab.icon}
+                {tab.label}
+              </Button>
+            ))}
+          </div>
+        </ResizablePanel>
+        <ResizableHandle className="bg-neutral-100" />
+        <ResizablePanel defaultSize={25} className="p-2"></ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   );
 }
