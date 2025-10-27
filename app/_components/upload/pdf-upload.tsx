@@ -6,12 +6,14 @@ import Document from "../svg/document";
 import { useUploadStore } from "@/store/use-upload-store";
 import { Button } from "@/components/ui/button";
 import { sourceCodePro } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 interface PdfUploadProps {
   className?: string;
 }
 
 const PdfUpload = ({ className }: PdfUploadProps) => {
+  const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
   const { selectedFile, fileMetadata, setFile, clearFile } = useUploadStore();
 
@@ -44,6 +46,10 @@ const PdfUpload = ({ className }: PdfUploadProps) => {
 
   const handleRemove = () => {
     clearFile();
+  };
+
+  const onClickDashboardHandler = () => {
+    router.push("/dashboard");
   };
 
   if (selectedFile) {
@@ -79,7 +85,9 @@ const PdfUpload = ({ className }: PdfUploadProps) => {
             <X className="h-5 w-5 text-zinc-600 hover:text-zinc-800 transition-colors" />
           </button>
         </div>
-        <Button className="w-full py-6">Go to Dashboard</Button>
+        <Button className="w-full py-6" onClick={onClickDashboardHandler}>
+          Go to Dashboard
+        </Button>
       </section>
     );
   }
