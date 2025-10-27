@@ -15,7 +15,7 @@ export default function Home() {
           competitive job market.
         </p>
       </div>
-      <FeatureList className="mt-8" />
+      <FeatureList className="mt-12" />
     </div>
   );
 }

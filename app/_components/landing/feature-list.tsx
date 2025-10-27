@@ -26,7 +26,12 @@ const features = [
 
 const FeatureList = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("flex items-center justify-center gap-4", className)}>
+    <div
+      className={cn(
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl",
+        className
+      )}
+    >
       {features.map((feature) => (
         <Feature key={feature.title} {...feature} />
       ))}
